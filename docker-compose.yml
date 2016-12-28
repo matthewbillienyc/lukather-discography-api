@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.4.1
+    ports:
+      - "5432:5432"
+
+  web:
+    build: .
+    command: bin/rails server --port 8000 --binding 0.0.0.0
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    volumes:
+      - .:/lukather-discography-api
+
