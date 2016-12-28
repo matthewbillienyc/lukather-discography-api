@@ -5,9 +5,11 @@ services:
   web:
     build:
       context: .
-    command: rails s
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
     environment:
       RAILS_PORT: 3000
+      DB_HOST: db
+      DB_USERNAME: postgres
     volumes:
       - .:/app
     ports:
