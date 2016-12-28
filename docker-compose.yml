@@ -1,30 +1,16 @@
 version: '2'
 services:
   db:
-    image: postgres:9.4.1
-    volumes:
-      - dbdata:/var/lib/postgresql/data
+    image: postgres:9.4
   web:
     build:
       context: .
-    command: "bash /app/start_server.sh"
+    command: rails s
     environment:
       RAILS_PORT: 3000
-      DB_HOST: db
-      DB_USERNAME: postgres
     volumes:
       - .:/app
     ports:
       - "3000:3000"
     depends_on:
       - db
-    stdin_open: true
-    tty: true
-    # UID that local user is mapped to in Docker container
-    # with boot2docker on a Mac
-    # XXX: a better method for this might be userns-remap
-    # or just not mounting the .:/app volume
-    user: root
-volumes:
-  dbdata:
-    
